@@ -41,12 +41,11 @@
     body.bg-bliss::before {
       content: "";
       position: fixed;
-      left: -8%;
-      right: -8%;
-      bottom: 28px;
-      height: 58vh;
-      background: linear-gradient(180deg, #5ca34d 0%, #3d8b35 100%);
-      clip-path: ellipse(70% 82% at 50% 100%);
+      inset: 0;
+      background-image: url("https://raw.githubusercontent.com/869274/Vhhfgsiuvhfdsuivhfduisgfdhlhfgd/main/hills.jpg");
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-size: cover;
       z-index: 0;
       pointer-events: none;
     }
@@ -487,7 +486,7 @@
       <div style="background:#eee; padding:2px; margin-bottom:4px; display:flex; gap:5px;">
         <button onclick="alert('Note saved to My Documents.')" style="font-size:10px; cursor:pointer;">Save</button>
         <button onclick="document.getElementById('note-text').value=''" style="font-size:10px; cursor:pointer;">Clear</button>
-        <button onclick="document.getElementById('note-text').value='Stream ideas:\n1. Test the final virus stage\n2. Set a new snake record\n3. Say hello to the community'" style="font-size:10px; cursor:pointer;">Template</button>
+        <button onclick="document.getElementById('note-text').value='Stream ideas:\n1. Test the final virus stage\n2. Set a new snake record\n3. Say hello to the community'" style="font-size:10px; cursor:pointer;">Sample</button>
       </div>
       <textarea class="notepad-textarea" id="note-text" placeholder="Write your notes here..."></textarea>
     </div>
@@ -706,7 +705,7 @@
       folderData[folderKey].forEach(item => {
         const div = document.createElement('div');
         div.className = 'explorer-item';
-        div.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAAAAA" alt="File icon" />' + item;
+        div.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlM" alt="File" />';
         div.onclick = () => alert('Opening simulated file: ' + item);
         main.appendChild(div);
       });
@@ -955,18 +954,18 @@
 
     function runVirusStage1() {
       const box = document.getElementById('virus-lab-body');
-      box.innerHTML = '<h4>Stage 1: Signature Scan</h4><p>Analyzing the desktop layer...</p><button onclick="runVirusStage2()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:linear-gradient(to bottom,#ff4d4d,#cc0000); color:white; border:1px solid #990000;">Continue</button>';
+      box.innerHTML = '<h4>Stage 1: Signature Scan</h4><p>Analyzing the desktop layer...</p><button onclick="runVirusStage2()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:linear-gradient(to bottom, #ff4d4d, #cc0000); color:white; border:1px solid #990000;">Continue</button>';
       playOscillatorSound(440, 180);
     }
     function runVirusStage2() {
       const box = document.getElementById('virus-lab-body');
-      box.innerHTML = '<h4>Stage 2: Visual Override</h4><p>Injecting graphical pulses...</p><button onclick="runVirusStage3()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:linear-gradient(to bottom,#ffb347,#d96b00); color:white; border:1px solid #8f4a00;">Override</button>';
+      box.innerHTML = '<h4>Stage 2: Visual Override</h4><p>Injecting graphical pulses...</p><button onclick="runVirusStage3()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:linear-gradient(to bottom, #ff4d4d, #cc0000); color:white; border:1px solid #990000;">Continue</button>';
       document.getElementById('virus-ransom-box').style.display = 'block';
       playOscillatorSound(660, 140);
     }
     function runVirusStage3() {
       const box = document.getElementById('virus-lab-body');
-      box.innerHTML = '<h4>Stage 3: Security Layer Drift</h4><p>Bypassing warning signal...</p><button onclick="runVirusStage4()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:linear-gradient(to bottom,#a2c8ff,#4a79d8); color:white; border:1px solid #2d4f9f;">Bypass</button>';
+      box.innerHTML = '<h4>Stage 3: Security Layer Drift</h4><p>Bypassing warning signal...</p><button onclick="runVirusStage4()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:linear-gradient(to bottom, #ff4d4d, #cc0000); color:white; border:1px solid #990000;">Continue</button>';
       playOscillatorSound(800, 120);
     }
     function runVirusStage4() {
