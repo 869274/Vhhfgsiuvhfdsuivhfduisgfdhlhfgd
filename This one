@@ -10,6 +10,7 @@
       margin: 0; width: 100vw; height: 100vh; overflow: hidden;
       font-family: 'Tahoma', 'Segoe UI', sans-serif; font-size: 11px;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body.theme-blue {
@@ -110,17 +111,30 @@
     .desktop-icon img { width: 36px; height: 36px; margin-bottom: 5px; }
 
     .window {
-      width: 500px; height: 360px; background: #f1f0e8; border: 3px solid var(--xp-border); border-top-left-radius: 7px; border-top-right-radius: 7px;
-      position: absolute; z-index: 100; display: none; box-shadow: 4px 6px 22px rgba(0,0,0,0.4); transform: scale(0.95); opacity: 0;
-      transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+      width: 500px; height: 360px; background: linear-gradient(to bottom, #f6f4ed 0%, #edf1f6 100%);
+      border: 2px solid rgba(64, 76, 112, 0.8);
+      border-radius: 10px 10px 0 0;
+      position: absolute; z-index: 100; display: none; box-shadow: 4px 6px 22px rgba(0,0,0,0.4);
+      transform: scale(0.95); opacity: 0; overflow: hidden; transition: transform 0.15s ease-out, opacity 0.15s ease-out;
     }
     .window.window-open { transform: scale(1); opacity: 1; }
+    .window::before {
+      content: ""; position: absolute; inset: 12px 16px auto 16px; height: 18px; border-radius: 8px 8px 0 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(145,166,211,0.15));
+      pointer-events: none;
+    }
     .window-header {
-      background: var(--xp-header); color: white; font-weight: bold; padding: 5px 8px; font-size: 11px; display: flex;
-      justify-content: space-between; align-items: center; cursor: move; height: 26px;
+      background: linear-gradient(to bottom, #d8d1bd 0%, #cab98a 16%, #bda26c 34%, #a88444 100%);
+      color: #1a1a1a; font-weight: bold; padding: 8px 10px 10px; font-size: 11px; display: flex;
+      justify-content: space-between; align-items: center; cursor: move; height: 36px; position: relative; z-index: 2;
+      border-bottom: 2px solid rgba(84, 55, 18, 0.45); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+      touch-action: none;
     }
     .window-title-area { display: flex; align-items: center; gap: 6px; }
-    .window-title-icon { width: 14px; height: 14px; background: #fff; border-radius: 2px; display: inline-block; font-size: 8px; text-align: center; line-height: 14px; color: #333; }
+    .window-title-icon {
+      width: 16px; height: 16px; background: rgba(255,255,255,0.9); border-radius: 4px; display: inline-flex;
+      align-items: center; justify-content: center; font-size: 10px; color: #333; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12);
+    }
     .window-controls { display: flex; gap: 2px; }
     .window-controls button {
       color: white; font-weight: bold; font-size: 9px; border-radius: 2px; width: 22px; height: 18px; cursor: pointer;
@@ -130,17 +144,35 @@
     .win-btn-close { background: linear-gradient(to bottom, #e76446 0%, #b83314 100%); }
     .win-btn-close:hover { background: #ff3300; }
     .window-body {
-      padding: 10px; font-size: 11px; color: black; background: #fff; height: calc(100% - 26px); overflow: auto; position: relative;
+      padding: 10px; font-size: 11px; color: black; background: linear-gradient(to bottom, #f6f8fb 0%, #edf3fb 100%);
+      height: calc(100% - 36px); overflow: auto; position: relative; border-top: 1px solid rgba(76,98,139,0.3);
     }
     .window.maximized { width: 100% !important; height: calc(100vh - 30px) !important; top: 0 !important; left: 0 !important; }
 
     .explorer-layout { display: flex; height: 100%; }
-    .explorer-sidebar { width: 130px; background: #7b9ede; border-right: 1px solid #4b6da3; padding: 8px; color: white; }
-    .explorer-main { flex-grow: 1; padding: 10px; display: flex; flex-wrap: wrap; gap: 15px; background: #fff; align-content: flex-start; }
-    .sidebar-folder { padding: 6px; cursor: pointer; border-radius: 3px; font-weight: bold; margin-bottom: 5px; }
-    .sidebar-folder:hover { background-color: rgba(255,255,255,0.2); }
-    .explorer-item { width: 70px; text-align: center; cursor: pointer; font-size: 10px; }
-    .explorer-item img { width: 32px; height: 32px; display: block; margin: 0 auto 4px; }
+    .explorer-sidebar { width: 130px; background: linear-gradient(to bottom, #dce8ff 0%, #b7cefb 100%); border-right: 1px solid #7d9fd8; padding: 8px; color: #1d3552; }
+    .explorer-main { flex-grow: 1; padding: 10px; display: flex; flex-wrap: wrap; gap: 15px; background: #f9fbff; align-content: flex-start; }
+    .sidebar-folder { padding: 6px; cursor: pointer; border-radius: 6px; font-weight: bold; margin-bottom: 5px; background: rgba(255,255,255,0.35); border: 1px solid rgba(72,98,160,0.25); }
+    .sidebar-folder:hover { background-color: rgba(255,255,255,0.6); }
+    .explorer-item {
+      width: 76px; min-height: 84px; text-align: center; cursor: pointer; font-size: 10px; color: #1f2d3d; padding: 8px 6px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      border-radius: 8px; background: rgba(255,255,255,0.12); border: 1px solid transparent; position: relative;
+    }
+    .explorer-item:hover { background: rgba(255,255,255,0.5); border-color: rgba(93,136,223,0.5); }
+    .explorer-item::before {
+      content: ""; width: 30px; height: 38px; display: block; background: linear-gradient(to bottom, #fff 0%, #eaeef7 100%);
+      border: 1px solid #a8b5d3; border-radius: 3px 3px 4px 4px; position: relative; box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+    }
+    .explorer-item::after {
+      content: ""; position: absolute; top: 10px; left: 24px; width: 10px; height: 8px; background: #eaeef7; border-left: 1px solid #a8b5d3; border-top: 1px solid #a8b5d3; border-radius: 2px 2px 0 0; transform: skewX(-22deg);
+    }
+    .explorer-item img {
+      width: 20px; height: 20px; position: absolute; top: 18px; left: calc(50% - 10px); display: block; filter: drop-shadow(0 2px 0 rgba(0,0,0,0.1));
+    }
+    .explorer-item span {
+      display: inline-block; line-height: 1.2; word-break: break-word; max-width: 68px;
+    }
 
     .nav-bar { display: flex; gap: 4px; margin-bottom: 8px; background: #f0f0f0; padding: 5px; border-bottom: 1px solid #ccc; align-items: center; }
     .nav-input { flex-grow: 1; border: 1px solid #7f9db9; padding: 3px 6px; font-size: 11px; }
@@ -234,6 +266,25 @@
       position: fixed; inset: 0; background-color: #0000aa; color: white; font-family: 'Courier New', monospace; padding: 50px; font-size: 12pt;
       z-index: 9999999; display: none; line-height: 1.5;
     }
+
+    @media (max-width: 700px) {
+      #desktop {
+        gap: 12px;
+        padding: 10px;
+      }
+      .desktop-icon {
+        width: 78px;
+        font-size: 10px;
+      }
+      .window {
+        width: min(86vw, 500px);
+        height: min(58vh, 360px);
+      }
+      #streamer-banner { left: 10px; right: 10px; }
+      #streamer-chat-box { width: 180px; }
+      .taskbar-app-btn { max-width: 78px; }
+      #start-button { width: 80px; }
+    }
   </style>
 </head>
 <body class="theme-blue bg-bliss">
@@ -261,39 +312,39 @@
 
   <div id="desktop">
     <div class="desktop-icon" onclick="openWindow('win-superwium')" data-tooltip="SuperWium 4.0 Web Browser">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Browser" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Browser icon" />
       <span>SuperWium 4.0</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-snake')" data-tooltip="Snake Game Ultra Edition">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAbFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Snake" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAbFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Snake icon" />
       <span>Snake Ultra</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-virus')" data-tooltip="Malware Demo Lab">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAWlBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Virus" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAWlBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Virus icon" />
       <span>Virus Lab Xtreme</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-explorer')" data-tooltip="RetroCore File Explorer">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAASFBMVEX///8AAAD8/PzMzMz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Explorer" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAASFBMVEX///8AAAD8/PzMzMz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Explorer icon" />
       <span>Explorer</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-control')" data-tooltip="System Settings and Themes">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAMFBMVEX///8AAAD8/PyZmZnMzMzcnJz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACm8v7gAAAAAnRSTlMAgJsrUAAAADNJREF" alt="Control" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAMFBMVEX///8AAAD8/PyZmZnMzMzcnJz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACm8v7gAAAAAnRSTlMAgJsrUAAAADNJREF" alt="Control panel icon" />
       <span>Control Panel</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-music')" data-tooltip="RetroMusic Player">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAUlBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Music" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAUlBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Music icon" />
       <span>RetroMusic</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-notepad')" data-tooltip="Simple Text Editor">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Notepad" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Notepad icon" />
       <span>Notepad</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-cmd')" data-tooltip="RetroCore Terminal">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAbFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="CMD" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAbFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="CMD icon" />
       <span>CMD</span>
     </div>
     <div class="desktop-icon" onclick="alert('The Recycle Bin is empty.')" data-tooltip="Deleted Files Container">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAASFBMVEX///8AAAD8/PzMzMz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Trash" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAASFBMVEX///8AAAD8/PzMzMz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Trash icon" />
       <span>Recycle Bin</span>
     </div>
   </div>
@@ -487,7 +538,7 @@
 
   <div id="start-menu">
     <div class="start-header">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAMFBMVEUAAAD///+ZmZnMzMzcnJz8/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB69u7SAAAAAXRSTlMAQObYZgAAADlJREF" alt="User" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAMFBMVEUAAAD///+ZmZnMzMzcnJz8/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB69u7SAAAAAXRSTlMAQObYZgAAADlJREF" alt="User icon" />
       <span>Angelo_Streamer</span>
     </div>
     <div class="start-menu-list">
@@ -623,29 +674,59 @@
       }
     }
 
-    document.querySelectorAll('.window').forEach(win => {
+    function setupWindowDragging(win) {
       const header = win.querySelector('.window-header');
-      header.addEventListener('mousedown', (e) => {
-        if (e.target.tagName === 'BUTTON') return;
-        const sX = e.clientX - win.getBoundingClientRect().left;
-        const sY = e.clientY - win.getBoundingClientRect().top;
-        win.style.zIndex = ++topZ;
+      if (!header) return;
 
-        function move(ev) {
-          let nx = ev.clientX - sX;
-          let ny = ev.clientY - sY;
-          if (ny < 0) ny = 0;
-          if (nx < 0) nx = 0;
-          win.style.left = nx + 'px';
-          win.style.top = ny + 'px';
-        }
-        document.addEventListener('mousemove', move);
-        document.onmouseup = function () {
-          document.removeEventListener('mousemove', move);
-          document.onmouseup = null;
+      let dragState = null;
+
+      header.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('button')) return;
+        dragState = {
+          startX: e.clientX,
+          startY: e.clientY,
+          left: win.offsetLeft,
+          top: win.offsetTop,
+          pointerId: e.pointerId
         };
+        win.setPointerCapture?.(e.pointerId);
+        win.style.zIndex = ++topZ;
+        header.style.cursor = 'grabbing';
       });
-    });
+
+      header.addEventListener('pointermove', (e) => {
+        if (!dragState || e.pointerId !== dragState.pointerId) return;
+        const dx = e.clientX - dragState.startX;
+        const dy = e.clientY - dragState.startY;
+
+        let newLeft = dragState.left + dx;
+        let newTop = dragState.top + dy;
+
+        const maxLeft = window.innerWidth - win.offsetWidth - 10;
+        const maxTop = window.innerHeight - win.offsetHeight - 40;
+
+        newLeft = Math.min(Math.max(newLeft, 0), maxLeft);
+        newTop = Math.min(Math.max(newTop, 0), maxTop);
+
+        win.style.left = newLeft + 'px';
+        win.style.top = newTop + 'px';
+      });
+
+      function stopDrag(e) {
+        if (dragState && e.pointerId === dragState.pointerId) {
+          dragState = null;
+          header.style.cursor = 'move';
+        }
+      }
+
+      header.addEventListener('pointerup', stopDrag);
+      header.addEventListener('pointercancel', stopDrag);
+      header.addEventListener('lostpointercapture', () => {
+        header.style.cursor = 'move';
+      });
+    }
+
+    document.querySelectorAll('.window').forEach(setupWindowDragging);
 
     function changeTheme(theme) {
       document.body.className = document.body.className.replace(/theme-\w+/g, theme);
@@ -666,7 +747,7 @@
       folderData[folderKey].forEach(item => {
         const div = document.createElement('div');
         div.className = 'explorer-item';
-        div.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="item" />' + item;
+        div.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="File icon" /><span>' + item + '</span>';
         div.onclick = () => alert('Opening simulated file: ' + item);
         main.appendChild(div);
       });
@@ -689,7 +770,7 @@
         view.innerHTML = '<h3>RetroCore News Portal</h3><p>Virtual environment development has reached version 5.0 with full support for phonk music.</p>';
       } else if (site === 'changelog') {
         bar.value = 'https://retrocore.net/changelog5';
-        view.innerHTML = '<h3>RetroCore 5.0 Ultimate Highlights</h3><ul><li>Interactive CMD integration</li><li>Submenus added to the start button</li><li>Colorful border effects and live streamer overlays</li></ul>';
+        view.innerHTML = '<h3>RetroCore 5.0 Ultimate Highlights</h3><ul><li>Interactive CMD integration</li><li>Submenus added to the start button</li><li>Colorful border effects and live streamer overlay</li><li>Retro desktop polish across the full OS flow</li></ul>';
       }
     }
 
@@ -915,18 +996,18 @@
 
     function runVirusStage1() {
       const box = document.getElementById('virus-lab-body');
-      box.innerHTML = '<h4>Stage 1: Signature Scan</h4><p>Analyzing the desktop layer...</p><button onclick="runVirusStage2()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:#e0a800; color:#000; border:none;">Proceed to Stage 2</button>';
+      box.innerHTML = '<h4>Stage 1: Signature Scan</h4><p>Analyzing the desktop layer...</p><button onclick="runVirusStage2()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:#e0f0ff; border:1px solid #3a7be0;">Continue</button>';
       playOscillatorSound(440, 180);
     }
     function runVirusStage2() {
       const box = document.getElementById('virus-lab-body');
-      box.innerHTML = '<h4>Stage 2: Visual Override</h4><p>Injecting graphical pulses...</p><button onclick="runVirusStage3()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:#ff8c00; color:#fff; border:none;">Proceed to Stage 3</button>';
+      box.innerHTML = '<h4>Stage 2: Visual Override</h4><p>Injecting graphical pulses...</p><button onclick="runVirusStage3()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:#fff0bf; border:1px solid #d8a300;">Continue</button>';
       document.getElementById('virus-ransom-box').style.display = 'block';
       playOscillatorSound(660, 140);
     }
     function runVirusStage3() {
       const box = document.getElementById('virus-lab-body');
-      box.innerHTML = '<h4>Stage 3: Security Layer Drift</h4><p>Bypassing warning signal...</p><button onclick="runVirusStage4()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:#cc0000; color:#fff; border:none;">Proceed to Stage 4</button>';
+      box.innerHTML = '<h4>Stage 3: Security Layer Drift</h4><p>Bypassing warning signal...</p><button onclick="runVirusStage4()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:#dfffe8; border:1px solid #2a9d60;">Continue</button>';
       playOscillatorSound(800, 120);
     }
     function runVirusStage4() {
