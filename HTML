@@ -110,58 +110,119 @@
     .desktop-icon img { width: 36px; height: 36px; margin-bottom: 5px; }
 
     .window {
-      width: 500px; height: 360px; background: #f1f0e8; border: 3px solid var(--xp-border); border-top-left-radius: 7px; border-top-right-radius: 7px;
-      position: absolute; z-index: 100; display: none; box-shadow: 4px 6px 22px rgba(0,0,0,0.4); transform: scale(0.95); opacity: 0;
+      width: 500px; height: 360px; background: linear-gradient(to bottom, #f3efe7, #e7e1d6);
+      border: 1px solid #b9b1a2; border-radius: 12px 12px 10px 10px;
+      position: absolute; z-index: 100; display: none; box-shadow: 0 14px 28px rgba(0,0,0,0.18);
+      transform: scale(0.96); opacity: 0; overflow: hidden;
       transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+    }
+    .window::before {
+      content: "";
+      position: absolute;
+      left: 18px; top: -9px;
+      width: 130px; height: 18px;
+      background: linear-gradient(to bottom, #f8f5ef, #e2d9c9);
+      border: 1px solid #b7aea0;
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+      z-index: 1;
     }
     .window.window-open { transform: scale(1); opacity: 1; }
     .window-header {
-      background: var(--xp-header); color: white; font-weight: bold; padding: 5px 8px; font-size: 11px; display: flex;
-      justify-content: space-between; align-items: center; cursor: move; height: 26px;
+      position: relative; z-index: 2;
+      background: linear-gradient(to bottom, #d7d1c8 0%, #efe9e0 20%, #d7d1c8 100%);
+      color: #2a2a2a; font-weight: bold; padding: 8px 10px 7px; font-size: 11px; display: flex;
+      justify-content: space-between; align-items: center; cursor: move; height: 30px;
+      border-bottom: 1px solid #b9b0a0; box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
     }
     .window-title-area { display: flex; align-items: center; gap: 6px; }
-    .window-title-icon { width: 14px; height: 14px; background: #fff; border-radius: 2px; display: inline-block; font-size: 8px; text-align: center; line-height: 14px; color: #333; }
+    .window-title-icon {
+      width: 14px; height: 14px; background: #fff; border-radius: 2px; display: inline-block;
+      font-size: 8px; text-align: center; line-height: 14px; color: #333; border: 1px solid #b9b9b9;
+    }
     .window-controls { display: flex; gap: 2px; }
     .window-controls button {
       color: white; font-weight: bold; font-size: 9px; border-radius: 2px; width: 22px; height: 18px; cursor: pointer;
-      border: 1px solid rgba(0,0,0,0.3); padding: 0; box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+      border: 1px solid rgba(0,0,0,0.25); padding: 0; box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
     }
-    .win-btn-min, .win-btn-max { background: linear-gradient(to bottom, #3c7be6, #1640a3); }
-    .win-btn-close { background: linear-gradient(to bottom, #e76446 0%, #b83314 100%); }
+    .win-btn-min, .win-btn-max { background: linear-gradient(to bottom, #9bb7d5, #718bb3); }
+    .win-btn-close { background: linear-gradient(to bottom, #ea7561 0%, #b7371b 100%); }
     .win-btn-close:hover { background: #ff3300; }
     .window-body {
-      padding: 10px; font-size: 11px; color: black; background: #fff; height: calc(100% - 26px); overflow: auto; position: relative;
+      padding: 12px; font-size: 11px; color: black; background: linear-gradient(to bottom, #fffefb, #f5f2ec);
+      height: calc(100% - 30px); overflow: auto; position: relative;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      box-shadow: inset 0 0 0 1px rgba(180,170,155,0.58);
     }
     .window.maximized { width: 100% !important; height: calc(100vh - 30px) !important; top: 0 !important; left: 0 !important; }
 
     .explorer-layout { display: flex; height: 100%; }
-    .explorer-sidebar { width: 130px; background: #7b9ede; border-right: 1px solid #4b6da3; padding: 8px; color: white; }
-    .explorer-main { flex-grow: 1; padding: 10px; display: flex; flex-wrap: wrap; gap: 15px; background: #fff; align-content: flex-start; }
-    .sidebar-folder { padding: 6px; cursor: pointer; border-radius: 3px; font-weight: bold; margin-bottom: 5px; }
-    .sidebar-folder:hover { background-color: rgba(255,255,255,0.2); }
-    .explorer-item { width: 70px; text-align: center; cursor: pointer; font-size: 10px; }
+    .explorer-sidebar {
+      width: 146px; background: linear-gradient(to bottom, #dfeaf7, #bed0ef);
+      border-right: 1px solid #9eb6d8; padding: 8px; color: #2a3b5f;
+      box-shadow: inset -1px 0 0 rgba(255,255,255,0.8);
+    }
+    .explorer-main {
+      flex-grow: 1; padding: 12px; display: flex; flex-wrap: wrap; gap: 16px; background: #fffefc;
+      align-content: flex-start; border-left: 1px solid rgba(0,0,0,0.04);
+    }
+    .sidebar-folder {
+      padding: 6px 8px; cursor: pointer; border-radius: 4px; font-weight: bold; margin-bottom: 5px;
+      border: 1px solid transparent;
+    }
+    .sidebar-folder:hover { background-color: rgba(88,111,161,0.12); border-color: rgba(88,111,161,0.22); }
+    .explorer-item {
+      width: 72px; text-align: center; cursor: pointer; font-size: 10px; color: #1f1f1f;
+      padding: 6px 4px; border-radius: 6px; border: 1px solid transparent;
+    }
+    .explorer-item:hover { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
     .explorer-item img { width: 32px; height: 32px; display: block; margin: 0 auto 4px; }
 
-    .nav-bar { display: flex; gap: 4px; margin-bottom: 8px; background: #f0f0f0; padding: 5px; border-bottom: 1px solid #ccc; align-items: center; }
-    .nav-input { flex-grow: 1; border: 1px solid #7f9db9; padding: 3px 6px; font-size: 11px; }
-    .nav-btn { background: #fff; border: 1px solid #a0a0a0; border-radius: 3px; cursor: pointer; padding: 3px 10px; font-weight: bold; }
-    .web-content { width: 100%; height: calc(100% - 40px); background: #fff; border: 1px solid #999; padding: 12px; overflow-y: auto; }
+    .nav-bar {
+      display: flex; gap: 4px; margin-bottom: 8px; background: linear-gradient(to bottom, #faf7f1, #efeadf);
+      padding: 6px; border: 1px solid #d1c9bd; border-radius: 6px; align-items: center; box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+    .nav-input {
+      flex-grow: 1; border: 1px solid #9aa9b7; padding: 3px 6px; font-size: 11px; border-radius: 3px;
+      background: rgba(255,255,255,0.82);
+    }
+    .nav-btn {
+      background: linear-gradient(to bottom, #ffffff, #ece6d8); border: 1px solid #b7aa94; border-radius: 4px;
+      cursor: pointer; padding: 3px 10px; font-weight: bold; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+    .web-content {
+      width: 100%; height: calc(100% - 42px); background: #fffefc; border: 1px solid #d0c9c0; border-radius: 6px;
+      padding: 12px; overflow-y: auto; box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
 
-    #snakeGameCanvas { border: 2px solid var(--xp-border); background-color: #0d0d0d; display: block; margin: 0 auto; }
-    .snake-dashboard { display: flex; justify-content: space-between; font-weight: bold; background: #f0f0f0; padding: 6px; border-radius: 4px; margin-top: 6px; }
+    #snakeGameCanvas { border: 2px solid #7c7c7c; background-color: #0d0d0d; display: block; margin: 0 auto; border-radius: 4px; }
+    .snake-dashboard {
+      display: flex; justify-content: space-between; font-weight: bold; background: linear-gradient(to bottom, #faf8f5, #ece5db);
+      padding: 6px; border-radius: 4px; margin-top: 6px; border: 1px solid #d1c7b8; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    }
 
     .ctrl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .ctrl-card { border: 1px solid #ccc; padding: 10px; border-radius: 4px; background: #fdfdfd; }
+    .ctrl-card {
+      border: 1px solid #d9d0c3; padding: 10px; border-radius: 6px; background: linear-gradient(to bottom, #fffeff, #f3efe9);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
     .ctrl-card h5 { margin: 0 0 6px 0; font-size: 11px; color: #245edb; }
 
-    .player-box { background: #222; color: #00ff00; padding: 12px; border-radius: 6px; font-family: monospace; text-align: center; }
+    .player-box {
+      background: linear-gradient(to bottom, #1d1f22, #0f1115); color: #00ff00; padding: 12px; border-radius: 6px;
+      font-family: monospace; text-align: center; border: 1px solid #3d3f46;
+    }
     .player-controls { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
     .player-btn { background: #444; border: 1px solid #666; color: white; padding: 4px 10px; cursor: pointer; font-size: 10px; font-family: monospace; }
     .player-btn:hover { background: #666; }
     .music-progress { width: 100%; background: #444; height: 6px; margin-top: 10px; border-radius: 3px; overflow: hidden; }
     .music-bar { width: 0%; height: 100%; background: #00ff00; transition: width 0.5s linear; }
 
-    .notepad-textarea { width: 100%; height: calc(100% - 30px); border: 1px solid #ccc; resize: none; font-family: Courier, monospace; padding: 5px; font-size: 12px; }
+    .notepad-textarea {
+      width: 100%; height: calc(100% - 30px); border: 1px solid #c6bfb3; resize: none; font-family: Courier, monospace; padding: 5px;
+      font-size: 12px; border-radius: 4px; background: rgba(255,255,255,0.8);
+    }
 
     .cmd-box { background: #000; color: #fff; font-family: monospace; height: 100%; padding: 5px; overflow-y: auto; }
     .cmd-output { white-space: pre-wrap; margin-bottom: 5px; line-height: 1.3; }
@@ -261,39 +322,39 @@
 
   <div id="desktop">
     <div class="desktop-icon" onclick="openWindow('win-superwium')" data-tooltip="SuperWium 4.0 Web Browser">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Browser" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Browser icon" />
       <span>SuperWium 4.0</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-snake')" data-tooltip="Snake Game Ultra Edition">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAbFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Snake" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAbFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Snake icon" />
       <span>Snake Ultra</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-virus')" data-tooltip="Malware Demo Lab">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAWlBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Virus" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAWlBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Virus icon" />
       <span>Virus Lab Xtreme</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-explorer')" data-tooltip="RetroCore File Explorer">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAASFBMVEX///8AAAD8/PzMzMz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Explorer" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAASFBMVEX///8AAAD8/PzMzMz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Explorer icon" />
       <span>Explorer</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-control')" data-tooltip="System Settings and Themes">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAMFBMVEX///8AAAD8/PyZmZnMzMzcnJz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACm8v7gAAAAAnRSTlMAgJsrUAAAADNJREF" alt="Control" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAMFBMVEX///8AAAD8/PyZmZnMzMzcnJz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACm8v7gAAAAAnRSTlMAgJsrUAAAADNJREF" alt="Settings icon" />
       <span>Control Panel</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-music')" data-tooltip="RetroMusic Player">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAUlBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Music" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAUlBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Music icon" />
       <span>RetroMusic</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-notepad')" data-tooltip="Simple Text Editor">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Notepad" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="Notepad icon" />
       <span>Notepad</span>
     </div>
     <div class="desktop-icon" onclick="openWindow('win-cmd')" data-tooltip="RetroCore Terminal">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAbFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="CMD" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAbFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="CMD icon" />
       <span>CMD</span>
     </div>
     <div class="desktop-icon" onclick="alert('The Recycle Bin is empty.')" data-tooltip="Deleted Files Container">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAASFBMVEX///8AAAD8/PzMzMz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Trash" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAASFBMVEX///8AAAD8/PzMzMz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Recycle Bin icon" />
       <span>Recycle Bin</span>
     </div>
   </div>
@@ -444,7 +505,7 @@
       <div class="window-controls"><button class="win-btn-close" onclick="closeWindow('win-notepad')">X</button></div>
     </div>
     <div class="window-body" style="padding:4px;">
-      <div style="background:#eee; padding:2px; margin-bottom:4px; display:flex; gap:5px;">
+      <div style="background:#eee; padding:2px; margin-bottom:4px; display:flex; gap:5px; border:1px solid #d7d0c4; border-radius:4px;">
         <button onclick="alert('Note saved to My Documents.')" style="font-size:10px; cursor:pointer;">Save</button>
         <button onclick="document.getElementById('note-text').value=''" style="font-size:10px; cursor:pointer;">Clear</button>
         <button onclick="document.getElementById('note-text').value='Stream ideas:\n1. Test the final virus stage\n2. Set a new snake record\n3. Say hello to the community'" style="font-size:10px; cursor:pointer;">Template</button>
@@ -487,7 +548,7 @@
 
   <div id="start-menu">
     <div class="start-header">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAMFBMVEUAAAD///+ZmZnMzMzcnJz8/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB69u7SAAAAAXRSTlMAQObYZgAAADlJREF" alt="User" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAMFBMVEUAAAD///+ZmZnMzMzcnJz8/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB69u7SAAAAAXRSTlMAQObYZgAAADlJREF" alt="User profile" />
       <span>Angelo_Streamer</span>
     </div>
     <div class="start-menu-list">
@@ -666,7 +727,7 @@
       folderData[folderKey].forEach(item => {
         const div = document.createElement('div');
         div.className = 'explorer-item';
-        div.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAA" alt="item" />' + item;
+        div.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlMAgJsrUAAAAA" alt="File icon" />' + item;
         div.onclick = () => alert('Opening simulated file: ' + item);
         main.appendChild(div);
       });
@@ -915,18 +976,18 @@
 
     function runVirusStage1() {
       const box = document.getElementById('virus-lab-body');
-      box.innerHTML = '<h4>Stage 1: Signature Scan</h4><p>Analyzing the desktop layer...</p><button onclick="runVirusStage2()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:#e0a800; color:#000; border:none;">Proceed to Stage 2</button>';
+      box.innerHTML = '<h4>Stage 1: Signature Scan</h4><p>Analyzing the desktop layer...</p><button onclick="runVirusStage2()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:linear-gradient(to bottom,#ff4d4d,#cc0000); color:white; border:1px solid #990000;">Continue</button>';
       playOscillatorSound(440, 180);
     }
     function runVirusStage2() {
       const box = document.getElementById('virus-lab-body');
-      box.innerHTML = '<h4>Stage 2: Visual Override</h4><p>Injecting graphical pulses...</p><button onclick="runVirusStage3()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:#ff8c00; color:#fff; border:none;">Proceed to Stage 3</button>';
+      box.innerHTML = '<h4>Stage 2: Visual Override</h4><p>Injecting graphical pulses...</p><button onclick="runVirusStage3()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:linear-gradient(to bottom,#ffb347,#d96b00); color:white; border:1px solid #8f4a00;">Override</button>';
       document.getElementById('virus-ransom-box').style.display = 'block';
       playOscillatorSound(660, 140);
     }
     function runVirusStage3() {
       const box = document.getElementById('virus-lab-body');
-      box.innerHTML = '<h4>Stage 3: Security Layer Drift</h4><p>Bypassing warning signal...</p><button onclick="runVirusStage4()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:#cc0000; color:#fff; border:none;">Proceed to Stage 4</button>';
+      box.innerHTML = '<h4>Stage 3: Security Layer Drift</h4><p>Bypassing warning signal...</p><button onclick="runVirusStage4()" style="padding:8px 16px; font-weight:bold; cursor:pointer; background:linear-gradient(to bottom,#a2c8ff,#4a79d8); color:white; border:1px solid #2d4f9f;">Bypass</button>';
       playOscillatorSound(800, 120);
     }
     function runVirusStage4() {
