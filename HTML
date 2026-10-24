@@ -523,7 +523,7 @@
     </div>
   </div>
 
-  <div class="window" id="win-recycle" style="left: 10px; top: 12px; width: 420px; height: 260px;">
+  <div class="window" id="win-recycle" style="left: 10px; top: 12px; width: 420px; height: 260px; z-index: 80;">
     <div class="window-header">
       <div class="window-title-area"><span class="window-title-icon">🗑️</span> <span>Recycle Bin</span></div>
       <div class="window-controls">
@@ -671,11 +671,57 @@
       document.getElementById('shutdown-dialog').style.display = show ? 'block' : 'none';
     }
 
+    function placeRecycleBinAwayFromWindows(win) {
+      const preferredLeft = 10;
+      const preferredTop = 12;
+      const width = win.offsetWidth || 420;
+      const height = win.offsetHeight || 260;
+      const candidates = [];
+      for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 6; col++) {
+          candidates.push({ left: preferredLeft + col * 54, top: preferredTop + row * 48 });
+        }
+      }
+
+      const otherWindows = Array.from(document.querySelectorAll('.window')).filter(item => item !== win && item.style.display !== 'none');
+      for (const candidate of candidates) {
+        let overlap = false;
+        const right = candidate.left + width;
+        const bottom = candidate.top + height;
+
+        for (const other of otherWindows) {
+          const otherRect = other.getBoundingClientRect();
+          const otherLeft = otherRect.left;
+          const otherRight = otherRect.right;
+          const otherTop = otherRect.top;
+          const otherBottom = otherRect.bottom;
+
+          const hits = !(right <= otherLeft || candidate.left >= otherRight || bottom <= otherTop || candidate.top >= otherBottom);
+          if (hits) {
+            overlap = true;
+            break;
+          }
+        }
+
+        if (!overlap) {
+          win.style.left = candidate.left + 'px';
+          win.style.top = candidate.top + 'px';
+          return;
+        }
+      }
+
+      win.style.left = preferredLeft + 'px';
+      win.style.top = preferredTop + 'px';
+    }
+
     let topZ = 100;
     const openApps = {};
     function openWindow(id) {
       const win = document.getElementById(id);
       if (!win) return;
+      if (id === 'win-recycle') {
+        placeRecycleBinAwayFromWindows(win);
+      }
       win.style.display = 'block';
       setTimeout(() => win.classList.add('window-open'), 10);
       win.style.zIndex = ++topZ;
