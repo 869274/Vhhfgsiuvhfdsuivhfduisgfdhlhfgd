@@ -190,6 +190,7 @@
     .sidebar-folder { padding: 6px; cursor: pointer; border-radius: 3px; font-weight: bold; margin-bottom: 5px; }
     .sidebar-folder:hover { background-color: rgba(255,255,255,0.2); }
     .explorer-item { width: 70px; text-align: center; cursor: pointer; font-size: 10px; }
+    .explorer-item .item-icon { font-size: 32px; display: block; margin: 0 auto 4px; }
     .explorer-item img { width: 32px; height: 32px; display: block; margin: 0 auto 4px; }
 
     .nav-bar { display: flex; gap: 4px; margin-bottom: 8px; background: #f0f0f0; padding: 5px; border-bottom: 1px solid #ccc; align-items: center; }
@@ -284,6 +285,25 @@
       position: fixed; inset: 0; background-color: #0000aa; color: white; font-family: 'Courier New', monospace; padding: 50px; font-size: 12pt;
       z-index: 9999999; display: none; line-height: 1.5;
     }
+
+    .recycle-bin-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .recycle-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      padding: 8px 10px;
+      font-size: 11px;
+    }
+    .recycle-item .recycle-icon { font-size: 22px; }
   </style>
 </head>
 <body class="theme-blue bg-bliss">
@@ -342,8 +362,8 @@
       <span class="desktop-folder-icon">📁</span>
       <span>CMD</span>
     </div>
-    <div class="desktop-icon" onclick="alert('The Recycle Bin is empty.')" data-tooltip="Deleted Files Container">
-      <span class="desktop-folder-icon">📁</span>
+    <div class="desktop-icon" onclick="openWindow('win-recycle')" data-tooltip="Deleted Files Container" style="position: absolute; left: 18px; top: 18px; z-index: 6;">
+      <span class="desktop-folder-icon">🗑️</span>
       <span>Recycle Bin</span>
     </div>
   </div>
@@ -503,6 +523,28 @@
     </div>
   </div>
 
+  <div class="window" id="win-recycle" style="left: 10px; top: 12px; width: 420px; height: 260px;">
+    <div class="window-header">
+      <div class="window-title-area"><span class="window-title-icon">🗑️</span> <span>Recycle Bin</span></div>
+      <div class="window-controls">
+        <button class="win-btn-min" onclick="minimizeWindow('win-recycle')">_</button>
+        <button class="win-btn-max" onclick="maximizeWindow('win-recycle')">[]</button>
+        <button class="win-btn-close" onclick="closeWindow('win-recycle')">X</button>
+      </div>
+    </div>
+    <div class="window-body" style="padding: 10px; background: #f3f3f3;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px; font-size:13px; font-weight:bold;">
+        <span style="font-size:28px;">🗑️</span>
+        <span>Recycle Bin</span>
+      </div>
+      <ul class="recycle-bin-list">
+        <li class="recycle-item"><span class="recycle-icon">📄</span><span>Old Stream Notes.txt</span></li>
+        <li class="recycle-item"><span class="recycle-icon">📄</span><span>Unused Setup Log.txt</span></li>
+        <li class="recycle-item"><span class="recycle-icon">📄</span><span>Deleted Thumbnail Draft.psd</span></li>
+      </ul>
+    </div>
+  </div>
+
   <div class="window" id="win-cmd" style="left: 80px; top: 190px; width: 440px; height: 300px;">
     <div class="window-header">
       <div class="window-title-area"><span class="window-title-icon">💻</span> <span>CMD RetroCore Terminal</span></div>
@@ -633,6 +675,7 @@
     const openApps = {};
     function openWindow(id) {
       const win = document.getElementById(id);
+      if (!win) return;
       win.style.display = 'block';
       setTimeout(() => win.classList.add('window-open'), 10);
       win.style.zIndex = ++topZ;
@@ -641,6 +684,7 @@
     }
     function closeWindow(id) {
       const win = document.getElementById(id);
+      if (!win) return;
       win.classList.remove('window-open');
       setTimeout(() => win.style.display = 'none', 150);
       delete openApps[id];
@@ -716,7 +760,7 @@
       folderData[folderKey].forEach(item => {
         const div = document.createElement('div');
         div.className = 'explorer-item';
-        div.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEX///8AAAD/AJD/mZn/zMz/27b/5ub/8vL////////////09PT29vb4+Pj6+vr8/Pz9/f3///999999AAAAAnRSTlM" alt="Folder icon" /><span>' + item + '</span>';
+        div.innerHTML = '<span class="item-icon">📄</span><span>' + item + '</span>';
         div.onclick = () => alert('Opening simulated file: ' + item);
         main.appendChild(div);
       });
